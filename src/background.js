@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Tray, Menu, remote, dialog } from 'electron'
+import { app, protocol, BrowserWindow, Tray, Menu, remote, dialog, crashReporter } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -69,8 +69,14 @@ function createWindow() {
         win = null
     })
 }
-
-// Quit when all windows are closed.
+//启用崩溃监控
+crashReporter.start({
+        productName: 'YourName',
+        companyName: 'YourCompany',
+        submitURL: 'https://your-domain.com/url-to-submit',
+        uploadToServer: true
+    })
+    // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
