@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script>
+<script type="module">
 import Title from './components/AppTitle.vue'
 import Body from './components/AppBody.vue'
 export default {

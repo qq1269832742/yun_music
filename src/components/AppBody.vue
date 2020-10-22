@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script>
+<script type="module">
 export default {
  name: 'AppBody',
   props: {
