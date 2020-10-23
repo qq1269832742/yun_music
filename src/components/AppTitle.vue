@@ -3,13 +3,15 @@
       <div id="containerLeft">
          <div class="circle"></div>
          <img id="appIcon" src="music.ico">
-         <span id="appName">{{appName}}</span>
+         <span id="appName" v-once class="no-selected">{{appName}}</span>
       </div>
       <div id="containerRight">
           <img src="userImg.jpg" id="userImg">
-          <span v-once id="userName">{{userInfo.userName}}</span>
-          <s v-bind:class="[isUp ? upStyle : dropStyle,'paddingDistance']" style="height:2px;display:inline-block" ></s>
-          <!--cursor pointer失效-->
+          <span v-once id="userName" class="no-selected">{{userInfo.userName}}        
+              <s id="userNameIcon" v-bind:class="[userInfo.isUp ? upStyle : dropStyle,'paddingDistance']" style="height:2px;display:inline-block" ></s>
+          </span>
+
+   
           <img src="关闭.png" class="imgFloatStyle"  @click="close">  
           <img src="最大化.png" class="imgFloatStyle" @click="max"> 
           <img src="最小化.png" class="imgFloatStyle" @click="min"> 
@@ -17,7 +19,10 @@
   </div>
 </template>
 
-<script type="module">
+<script type="module"> 
+import {  remote } from 'electron'
+ 
+ 
 export default {
   name: 'AppTitle',
   props: {
@@ -35,15 +40,18 @@ export default {
       }
   },
   methods: {
-      max:function(){
-
+      max() { 
+        remote.getCurrentWindow().maximize();
       } ,
-      min: function(){
-
-
+      min() {
+        remote.getCurrentWindow().minimize();
       } ,
-      close:function(){
-        
+      close() {
+        //ipcRenderer.send('close'); 
+        remote.getCurrentWindow().close(); // 关闭窗口，也结束了所有进程
+      },
+      restore() {
+       // remote.getCurrentWindow().restore();
       } 
   }
 }
@@ -51,6 +59,16 @@ export default {
 </script>
 
 <style scoped>
+.no-selected {
+  -webkit-user-select: none; /*Chrome/ Safari/ Opear新版本*/
+  -moz-user-select: none; /*Foxfire */
+  -ms-user-select: none; /*Internet Explorer/ Edge*/
+  -o-user-select: none; /*Opear老版本*/
+  -khtml-user-select: none; /* Konqueror */
+  -webkit-touch-callout: none; /* iOS Safari */
+  user-select: none;   
+}
+
   #title{
     background-color: #ee3e3e;  
     height: 62px; 
@@ -62,7 +80,7 @@ export default {
    font-size: 17px;
    color: white; 
    margin-left: 10px;
-  
+   
  }
  #appIcon{
     margin-left:0px;
@@ -98,28 +116,37 @@ export default {
 #userImg{
     width: 27px;
     height: 27px;
-    border-radius: 15px;
+    border-radius: 15px; 
 }
 #userName{
-    color: white;
-    font-size: 13px;
+    color: gainsboro;
+    font-size: 12px;
     margin-left: 5px;
 
+} 
+#userName:hover{
+  color: white;
 }
+ 
 .dropDown{
     width: 0;
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid lightgray;
+    border-top: 5px solid gainsboro;
 }
-
+ :hover{
+   border-top-color: white;
+}
 .dropUp{
     width: 0;
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-bottom: 5px solid lightgray;
+    border-bottom: 5px solid gainsboro;
+}
+ .dropUp :hover{
+   border-bottom: white;
 }
 .paddingDistance{
   margin-left:5px ;
@@ -131,7 +158,7 @@ export default {
   margin-right:10px;
   margin-top:23px 
 }
-img:hover{ 
- cursor:pointer;
-}
+img,span:hover{ 
+  cursor:pointer; 
+} 
 </style>

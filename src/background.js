@@ -45,10 +45,13 @@ function createWindow() {
         title: "卫卫云音乐",
         minWidth: 1020,
         minHeight: 668,
+        frame: false,
+        show: false,
         webPreferences: {
             // Use pluginOptions.nodeIntegration, leave this alone
             // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-            nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+            nodeIntegration: true, // process.env.ELECTRON_NODE_INTEGRATION
+            enableRemoteModule: true
         },
         frame: false,
         resizable: false,
@@ -67,6 +70,9 @@ function createWindow() {
 
     win.on('closed', () => {
         win = null
+    })
+    win.on('ready-to-show', function() {
+        win.show() // 初始化后再显示
     })
 }
 //启用崩溃监控
@@ -115,6 +121,7 @@ app.on('ready', async() => {
     appIcon.setContextMenu(contextMenu);
     createWindow()
 })
+
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
