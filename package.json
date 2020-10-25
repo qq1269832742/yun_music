@@ -12,11 +12,9 @@
         },
         "win": {
             "icon": "public/music.ico",
-            "target": [
-                {
-                    "target": "nsis"
-                }
-            ]
+            "target": [{
+                "target": "nsis"
+            }]
         },
         "nsis": {
             "oneClick": false,
@@ -39,8 +37,8 @@
         "postinstall": "electron-builder install-app-deps",
         "postuninstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
-        "dist": "electron-builder",
-        "dev": "babel-node .electron-vue/dev-runner.js"
+        "dist": "electron-builder"
+
     },
     "main": "./src/background.js",
     "dependencies": {
@@ -57,7 +55,6 @@
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
-        "babel-core": "^6.25.0",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^7.1.1",
         "babel-plugin-component": "^1.1.1",
@@ -68,12 +65,12 @@
         "babel-preset-stage-0": "^6.24.1",
         "babel-register": "^6.24.1",
         "electron": "^9.0.0",
-        "electron-builder": "^22.9.1",
         "electron-devtools-installer": "^3.1.0",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
         "vue-cli-plugin-electron-builder": "~2.0.0-rc.4",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "electron-builder": "^22.9.1"
     },
     "eslintConfig": {
         "root": true,
