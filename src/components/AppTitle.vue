@@ -7,14 +7,82 @@
          <div id="customSearchBox">
            <img src="查询.png">
            <input  type="text" placeholder="搜索" >
-         </div>
-        <div class="search-box">
-            <input class="search-txt" type="text" name="" placeholder="Type to search">
-            <a class="search-btn" href="#">
-                <i class="fas fa-search"></i>
-            </a>
-        </div>
-
+           <div id="searchContent" class="serachContentBox">
+             <p style="font-size:15px">热搜榜</p>  
+               <table> 
+                   <tr>
+                    <td class="hotSongNumber">
+                      1
+                    </td>
+                    <td>
+                      <div>
+                           <p class="hotSongName" style="margin-bottom:5px;">
+                              <span>你曾说过你很爱我</span>
+                              <span class="hotSongPlayNumber">283122</span>
+                             </p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="hotSongNumber">
+                      2
+                    </td>
+                    <td>
+                      <div>
+                           <p class="hotSongName" style="margin-bottom:5px;">
+                              <span>你曾说过你很爱我</span>
+                              <span class="hotSongPlayNumber">283122</span>
+                             </p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="hotSongNumber">
+                      3
+                    </td>
+                    <td>
+                      <div>
+                           <p class="hotSongName" style="margin-bottom:5px;">
+                              <span>你曾说过你很爱我</span>
+                              <span class="hotSongPlayNumber">283122</span>
+                             </p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="hotSongNumber">
+                      4
+                    </td>
+                    <td>
+                      <div>
+                           <p class="hotSongName" style="margin-bottom:5px;">
+                              <span>你曾说过你很爱我</span>
+                              <span class="hotSongPlayNumber">283122</span>
+                             </p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                      </div>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td class="hotSongNumber">
+                      5
+                    </td>
+                    <td>
+                      <div>
+                           <p class="hotSongName" style="margin-bottom:5px;">
+                              <span>你曾说过你很爱我</span>
+                              <span class="hotSongPlayNumber">283122</span>
+                             </p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                      </div>
+                    </td>
+                  </tr>
+               </table>
+           </div>
+         </div> 
       </div>
       <div id="containerRight" >
           <img src="关闭.png"  class="imgFloatStyle no-selected"  @click="close">  
@@ -24,6 +92,7 @@
           <img src="消息.png"  class="imgFloatStyle no-selected"  >  
           <img src="主题.png"  class="imgFloatStyle no-selected"  >  
           <img src="设置.png"  class="imgFloatStyle no-selected"  >  
+          <span v-once   class="no-selected userContentFloatStyle baseFont">{{vip.content}}</span>
           <span v-once id="userName" class="no-selected userContentFloatStyle">{{userInfo.userName}}        
               <s id="userNameIcon" v-bind:class="[userInfo.isUp ? upStyle : dropStyle]" style="height:2px;display:inline-block" ></s>
           </span>  
@@ -48,19 +117,22 @@ export default {
           },
           dropStyle:"dropDown",
           upStyle:"upDown",
-          isMax:remote.getCurrentWindow().isMaximized()
+          isMax:remote.getCurrentWindow().isMaximized(),
+          vip:{
+            content:"开通VIP"
+          }
       }
   },
   methods: { 
       min() {
-       ipcRenderer.send('window-min') // 通知主进程我要进行窗口最小化操作
+         ipcRenderer.send('window-min') // 通知主进程我要进行窗口最小化操作
       } ,
       close() {  
          ipcRenderer.send('window-close') 
       } ,
       setWindowState(){  
-        ipcRenderer.send('window-max')
-        this.isMax=remote.getCurrentWindow().isMaximized()
+         ipcRenderer.send('window-max')
+         this.isMax=remote.getCurrentWindow().isMaximized()
       }
   },
   computed:{
@@ -76,6 +148,8 @@ export default {
 </script>
 
 <style scoped>
+
+input::-webkit-input-placeholder { color: rgb(243, 235, 235); }
 .no-selected {
   -webkit-user-select: none; /*Chrome/ Safari/ Opear新版本*/
   -moz-user-select: none; /*Foxfire */
@@ -87,12 +161,33 @@ export default {
   -webkit-app-region: no-drag!important;
  
 }
-
-  #title{
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+ 
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar
+{
+	width: 16px;
+	height: 16px;
+	background-color: #F5F5F5;
+}
+#title{
     background-color: #EC4141;  
     height: 62px; 
     width: 100%;
-  }
+}
  #appName{  
    font-family: "STHeiti";
    font-size: 17px;
@@ -142,6 +237,13 @@ export default {
     margin-left: 5px;
 
 } 
+.baseFont{
+    color: rgb(243, 235, 235);
+    font-size: 12px;
+    margin-left: 5px;
+
+
+}
 #userName:hover{
   color: white;
 }
@@ -168,8 +270,8 @@ export default {
 } 
 .imgFloatStyle{
   float: right;
-  height: 18px;
-  width: 18px;
+  height: 19px;
+  width: 19px;
   margin-right:15px;
   margin-top:23px; 
 }
@@ -192,58 +294,19 @@ export default {
  .appIcon{
    margin-bottom:50px;
  }
-/**查询输入样式 */
- .search-box{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    background: #2f3640;
-    height: 40px;
-    border-radius: 40px;
-    padding: 10px;
-}
-.search-box:hover>.search-txt{
-    width: 240px;
-    padding: 0 6px;
-}
-.search-box:hover>.search-btn{
-   background: white;
-}
-.search-btn{
-    color: #e84118;
-    float:right ;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #2f3640;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search-txt{
-    border: none;
-    background: none;
-    outline: none;
-    float: left;
-    padding: 0;
-    color: white;
-    font-size: 16px;
-    transition: 0.4s;
-    line-height: 40px;
-    width: 0px;
-}
+ 
 #customSearchBox{
   display:inline-block;
-  position: relative;
+  position: absolute;
   height: 30px;
   width: 180px;
-  left: 250px;
-  bottom:25px;
+  left: 300px;
+  top:16px;
   -webkit-app-region: no-drag!important;
   cursor: pointer;
   border-radius:30px ; 
   background-color:#E13E3E;
+   
 }
 #customSearchBox>input{
   border: none;
@@ -251,12 +314,60 @@ export default {
   background-color:transparent;  
   margin-top: 5px;
   height: 22px;
-  margin-left:3px;
+  margin-left:3px; 
   outline: none;
   color: white;
+  font-size: 13px;
 }
 #customSearchBox>img{
   height: 18px;
+  margin-left: 10px;;
 }
-input::-webkit-input-placeholder { color: rgb(243, 235, 235); }
+/*查询歌曲内容*/ 
+.serachContentBox{
+  border: darkorange 1px solid;
+  background: white;
+  height: 457px;
+  width: 345px;
+  margin-left: -40px;
+  margin-top: 5px;
+  border-radius:8px;
+  font-size:12px;
+  padding-left:15px;
+  padding-top:15px;
+   
+}
+#searchContent>table{
+  margin-top:15px ;
+  width: 100%;
+}
+#searchContent>table>tr{
+  height: 55px;
+  width: 100%;
+}
+#searchContent>table>tr :hover{
+  background: rgb(218, 212, 212);
+}
+tr>td>div{
+  margin-left: 25px;
+}
+ 
+.hotSongNumber{ 
+  color: red;
+  font-size:14px;
+}
+.hotSongName{
+  font-weight: 600;
+}
+
+.hotSongDesc{
+  color: grey;
+}
+.hotSongPlayNumber{
+  color: rgb(199, 194, 194);
+  font-weight: 300;
+  margin-left:5px;
+}
+
+
 </style>
