@@ -6,8 +6,8 @@
 </template>
 
 <script type="module">
-import Title from './components/AppTitle.vue'
-import Body from './components/AppBody.vue'
+import Title from './renderer/views/AppTitle.vue'
+import Body from './renderer/views/AppBody.vue'
 export default {
   name: 'app',
   components: {

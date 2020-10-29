@@ -6,77 +6,22 @@
          <span id="appName"  class="no-selected"  >{{appName}}</span>
          <div id="customSearchBox">
            <img src="查询.png">
-           <input  type="text" placeholder="搜索" >
-           <div id="searchContent" class="serachContentBox">
+           <input  type="text" placeholder="搜索"  @focus="isShowSearchBox=true" 
+           @blur="isShowSearchBox=false">
+           <div id="searchContent" class="serachContentBox" v-show="isShowSearchBox">
              <p style="font-size:15px">热搜榜</p>  
-               <table> 
-                   <tr>
+               <table>  
+                  <tr v-for="(song,index) in hotSongList" :key="index" >
                     <td class="hotSongNumber">
-                      1
+                      {{index+1}}
                     </td>
                     <td>
                       <div>
                            <p class="hotSongName" style="margin-bottom:5px;">
-                              <span>你曾说过你很爱我</span>
-                              <span class="hotSongPlayNumber">283122</span>
+                              <span>{{song.info.name}}</span>
+                              <span class="hotSongPlayNumber">{{song.info.playTimes}}</span>
                              </p>
-                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
-                      </div>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td class="hotSongNumber">
-                      2
-                    </td>
-                    <td>
-                      <div>
-                           <p class="hotSongName" style="margin-bottom:5px;">
-                              <span>你曾说过你很爱我</span>
-                              <span class="hotSongPlayNumber">283122</span>
-                             </p>
-                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
-                      </div>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td class="hotSongNumber">
-                      3
-                    </td>
-                    <td>
-                      <div>
-                           <p class="hotSongName" style="margin-bottom:5px;">
-                              <span>你曾说过你很爱我</span>
-                              <span class="hotSongPlayNumber">283122</span>
-                             </p>
-                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
-                      </div>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td class="hotSongNumber">
-                      4
-                    </td>
-                    <td>
-                      <div>
-                           <p class="hotSongName" style="margin-bottom:5px;">
-                              <span>你曾说过你很爱我</span>
-                              <span class="hotSongPlayNumber">283122</span>
-                             </p>
-                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
-                      </div>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td class="hotSongNumber">
-                      5
-                    </td>
-                    <td>
-                      <div>
-                           <p class="hotSongName" style="margin-bottom:5px;">
-                              <span>你曾说过你很爱我</span>
-                              <span class="hotSongPlayNumber">283122</span>
-                             </p>
-                           <p class="hotSongDesc"  style="margin-top:5px;">盛夏的果实</p>
+                           <p class="hotSongDesc"  style="margin-top:5px;">{{song.info.album}}</p>
                       </div>
                     </td>
                   </tr>
@@ -118,9 +63,39 @@ export default {
           dropStyle:"dropDown",
           upStyle:"upDown",
           isMax:remote.getCurrentWindow().isMaximized(),
+          isShowSearchBox:false,
           vip:{
             content:"开通VIP"
-          }
+          },
+          hotSongList:[
+            {
+               info:
+                   {
+                     name:'你曾说过你很爱我',
+                     playTimes:283122,
+                     album:'盛夏的果实'
+                   }
+               
+            },
+            {
+              info:
+                   {
+                     name:'你曾说过你很爱我',
+                     playTimes:283122,
+                     album:'盛夏的果实'
+                   }
+               
+            },
+            {
+             info:
+                   {
+                     name:'你曾说过你很爱我',
+                     playTimes:283122,
+                     album:'盛夏的果实'
+                   }
+               
+            }
+          ]
       }
   },
   methods: { 
