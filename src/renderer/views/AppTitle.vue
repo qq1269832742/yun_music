@@ -6,8 +6,7 @@
          <span id="appName"  class="no-selected"  >{{appName}}</span>
          <div id="customSearchBox">
            <img src="查询.png">
-           <input  type="text" placeholder="搜索"  @focus="isShowSearchBox=true" 
-           @blur="isShowSearchBox=false">
+           <input  type="text" placeholder="搜索"  @focus="isShowSearchBox=true" @blur="isShowSearchBox=false">
            <div id="searchContent" class="serachContentBox" v-show="isShowSearchBox">
              <p style="font-size:15px">热搜榜</p>  
                <table>  
@@ -173,7 +172,7 @@ input::-webkit-input-placeholder { color: rgb(243, 235, 235); }
    left: 10px;
  }
  #appIcon{
-    margin-left:0px;
+    margin-left:-4px;
 
  }
  #containerLeft{ 
@@ -274,20 +273,21 @@ input::-webkit-input-placeholder { color: rgb(243, 235, 235); }
   display:inline-block;
   position: absolute;
   height: 30px;
-  width: 180px;
+  width: 200px;
   left: 300px;
   top:16px;
   -webkit-app-region: no-drag!important;
   cursor: pointer;
   border-radius:30px ; 
   background-color:#E13E3E;
+  padding-top: 5px;
    
 }
 #customSearchBox>input{
   border: none;
   width: 150px;
   background-color:transparent;  
-  margin-top: 5px;
+  margin-top: 0px;
   height: 22px;
   margin-left:3px; 
   outline: none;

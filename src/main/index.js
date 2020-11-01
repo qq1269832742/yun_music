@@ -4,8 +4,10 @@ import { app, protocol, BrowserWindow, Tray, Menu, ipcMain, dialog, crashReporte
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
-    // Keep a global reference of the window object, if you don't, the window will
-    // be closed automatically when the JavaScript object is garbage collected.
+import * as path from 'path'
+import { format as formatUrl } from 'url'
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
 let win
 let appIcon = null;
 const notes = [{
@@ -55,25 +57,43 @@ function createWindow() {
             webSecurity: false
         },
         frame: false,
-        icon: `public/${trayLogoName}.ico`
+        icon: `static/${trayLogoName}.ico`
     })
 
-    if (process.env.WEBPACK_DEV_SERVER_URL) {
-        // Load the url of the dev server if in development mode
-        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-            // if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // if (process.env.WEBPACK_DEV_SERVER_URL) {
+    //     // Load the url of the dev server if in development mode
+    //     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    //         // if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // } else {
+    //     createProtocol('app')
+    //         // Load the index.html when not in development
+    //     win.loadURL('app://./index.html')
+    // }
+    if (isDevelopment) {
+        win.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
     } else {
-        createProtocol('app')
-            // Load the index.html when not in development
-        win.loadURL('app://./index.html')
+        win.loadURL(formatUrl({
+            pathname: path.join(__dirname, 'index.html'),
+            protocol: 'file',
+            slashes: true
+        }))
     }
-
     win.on('closed', () => {
         win = null
     })
     win.on('ready-to-show', function() {
         win.show() // 初始化后再显示
     })
+
+    if (isDevelopment) {
+        window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+    } else {
+        window.loadURL(formatUrl({
+            pathname: path.join(__dirname, 'index.html'),
+            protocol: 'file',
+            slashes: true
+        }))
+    }
 }
 //启用崩溃监控
 crashReporter.start({
@@ -112,7 +132,7 @@ app.on('ready', async() => {
             }
         }
         // 创建一个带图标的托盘应用
-        appIcon = new Tray(`public/${trayLogoName}.ico`);
+        appIcon = new Tray(`static/${trayLogoName}.ico`);
         // 为托盘应用创建上下文菜单，迭代并添加为菜单项
         let contextMenu = Menu.buildFromTemplate(notes.map(addNoteToMenu));
         appIcon.setToolTip('卫卫云音乐');

@@ -2,12 +2,13 @@
   <div id="app" >  
      <Title appName="网易云音乐"/>
      <Body msg="我是主窗体"/>
+      
   </div>
 </template>
 
-<script type="module">
-import Title from './renderer/views/AppTitle.vue'
-import Body from './renderer/views/AppBody.vue'
+<script type="module"> 
+import Title from './views/AppTitle.vue'
+import Body from './views/AppBody.vue'
 export default {
   name: 'app',
   components: {
