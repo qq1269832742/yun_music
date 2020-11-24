@@ -8,6 +8,8 @@ import * as path from 'path'
 import { format as formatUrl } from 'url'
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
+import log from 'electron-log'
+log.transports.file.file = 'D:\\electron-practice\\xww_music\\logs'
 let win
 let appIcon = null;
 const notes = [{
@@ -60,17 +62,18 @@ function createWindow() {
         icon: `static/${trayLogoName}.ico`
     })
 
-    // if (process.env.WEBPACK_DEV_SERVER_URL) {
-    //     // Load the url of the dev server if in development mode
-    //     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    //         // if (!process.env.IS_TEST) win.webContents.openDevTools()
-    // } else {
-    //     createProtocol('app')
-    //         // Load the index.html when not in development
-    //     win.loadURL('app://./index.html')
-    // }
+    if (process.env.WEBPACK_DEV_SERVER_URL) {
+        // Load the url of the dev server if in development mode
+        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+            // if (!process.env.IS_TEST) win.webContents.openDevTools()
+    } else {
+        createProtocol('app')
+            // Load the index.html when not in development
+        win.loadURL('app://./index.html')
+    }
     if (isDevelopment) {
         win.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+
     } else {
         win.loadURL(formatUrl({
             pathname: path.join(__dirname, 'index.html'),

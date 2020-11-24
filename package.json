@@ -11,7 +11,7 @@
             "output": "build"
         },
         "win": {
-            "icon": "public/music.ico",
+            "icon": "static/music.ico",
             "target": [{
                 "target": "nsis"
             }]
@@ -25,21 +25,18 @@
             "oneClick": false,
             "allowElevation": true,
             "allowToChangeInstallationDirectory": true,
-            "installerIcon": "public/music.ico",
-            "uninstallerIcon": "public/music.ico",
-            "installerHeaderIcon": "public/music.ico",
+            "installerIcon": "static/music.ico",
+            "uninstallerIcon": "static/music.ico",
+            "installerHeaderIcon": "static/music.ico",
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
             "shortcutName": "网易云音乐"
         }
     },
     "scripts": {
-        "lint": "vue-cli-service lint",
         "electron:build": "vue-cli-service electron:build",
         "music": "vue-cli-service electron:serve",
         "devMusic": "electron-webpack dev",
-        "postinstall": "electron-builder install-app-deps",
-        "postuninstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
         "dist": "electron-builder",
         "compile": "electron-webpack",
@@ -53,6 +50,8 @@
         "electron-log": "^4.2.4",
         "install": "^0.13.0",
         "mocha": "^8.2.0",
+        "source-map-support": "^0.5.19",
+        "electron-devtools-installer": "^3.1.1",
         "vue": "^2.6.11"
     },
     "devDependencies": {
@@ -61,13 +60,13 @@
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
         "electron": "^9.0.0",
-        "electron-devtools-installer": "^3.1.0",
+        "electron-builder": "^22.9.1",
+        "electron-devtools-installer": "^3.1.1",
+        "electron-webpack": "^2.1.2",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
         "vue-cli-plugin-electron-builder": "~2.0.0-rc.4",
         "vue-template-compiler": "^2.6.11",
-        "electron-builder": "^22.9.1",
-        "electron-webpack": "^2.1.2",
         "webpack": "^4.16.5"
     },
     "eslintConfig": {
